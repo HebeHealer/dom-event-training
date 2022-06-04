@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="target">
+        click me!
+    </div>
+    <script>
+        // 与捕获流程一致 capture为false即为冒泡
+        var ev = document.querySelector(".target");
+        
+        window.addEventListener("click", function() {
+            console.info("window capture")
+        }, true);
+
+        window.addEventListener("click", function() {
+            console.info("document capture")
+        }, true)
+
+        document.documentElement.addEventListener("click", function() {
+            console.info("html  capture")
+        }, true)
+
+        ev.addEventListener("click", function() {
+            console.info("ev capture")
+        }, true)
+
+        document.body.addEventListener("click", function() {
+            console.info("body capture")
+        }, true)
+
+
+        // 自定义事件
+        var eve = new Event("test");
+        ev.addEventListener("test", function() {
+            console.info("test dispatch")   
+        })
+        setTimeout(function() {
+            ev.dispatchEvent(eve); // 触发自定义事件
+        }, 1000)
+    </script>
+</body>
+</html>
